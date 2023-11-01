@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <div class="header">
+        <a href="#" style="color: white;" id="goBackButton">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+    <div class="divTable">
+        <h1>Salas : Listagem</h1>
+        <div id="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Numero Sala</th>
+                        <th>Capacidade</th>
+                    </tr>
+                </thead>
+                <tbody id="sala-list">
+                </tbody>
+            </table>
+        </div>
+        <div id="message" style="color: red;"></div>
+    </div>
+    <script>
+        document.getElementById('goBackButton').addEventListener('click', function () {
+            window.history.back();
+        });
+
+        const salasList = document.getElementById('sala-list');
+        const message = document.getElementById('message');
+
+        fetch('http://localhost:3333/salas/', {
+            method: 'GET'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na solicitação');
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(sala => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${sala.id}</td>
+                        <td>${sala.numeroSala}</td>
+                        <td>${sala.capacidade}</td>
+                    `;
+                    salasList.appendChild(row);
+                });
+            })
+            .catch(error => {
+                message.textContent = 'Erro ao buscar as salas: ' + error.message;
+            });
+    </script>
+</body>
+
+</html>

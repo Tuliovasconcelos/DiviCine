@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .container {
+            text-align: center;
+        }
+
+        label {
+            color: white;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #0074d9;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="#" style="color: white;" id="goBackButton">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+    <div class="container">
+        <h1>Filmes : Listagem</h1>
+        <div>
+            <form id="filmeForm">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+
+                <label for="genero">Gênero:</label>
+                <input type="text" id="genero" name="genero" required>
+
+                <label for="diretor">Diretor:</label>
+                <input type="text" id="diretor" name="diretor" required>
+
+                <label for="duracao">Duração:</label>
+                <input type="text" id="duracao" name="duracao" required>
+
+                <label for="classificacao">Classificação:</label>
+                <input type="text" id="classificacao" name="classificacao" required>
+
+                <input type="submit" value="Enviar">
+            </form>
+            <div id="message" style="color: green;"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('goBackButton').addEventListener('click', function () {
+            window.history.back();
+        });
+
+        document.getElementById('filmeForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('http://localhost:3333/filmes/', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('message').textContent = 'Filme cadastrado com sucesso!';
+                })
+                .catch(error => {
+                    document.getElementById('message').style.color = 'red';
+                    document.getElementById('message').textContent = 'Erro na chamada à rota do backend!';
+                });
+        });
+    </script>
+</body>
+
+</html>

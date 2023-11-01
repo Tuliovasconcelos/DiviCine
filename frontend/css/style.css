@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-image: url('../image/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    margin: 50px;
+}
+
+.btn {
+    display: inline-block;
+    width: 150px;
+    padding: 10px 0;
+    background-color: #FF0000;
+    color: #fff;
+    text-decoration: none;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+h1,
+p,
+td,
+th {
+    color: #fff;
+}
+
+.header {
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header i.fas {
+    font-size: 24px;
+    /* Tamanho maior do ícone */
+}
+
+.divTable {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    /* Alinhar o conteúdo no centro da div */
+}
